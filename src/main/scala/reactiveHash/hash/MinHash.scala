@@ -12,7 +12,7 @@ object MinHash {
       if(t._1.hashCodeLong < t._2.hashCodeLong) t._1 else t._2
     }
   
-  def columnToSignatureByHash(hashSuite : RowHashSuite)(column : Column) : Signature = {
+  def columnToSignature(hashSuite : RowHashSuite)(column : Column) : Signature = {
     //iterator is finally spun through with the reduce...
     column.map(row => hashSuite.map(_(row))) reduce minHash
   }//end def columnToSignatureByHash
@@ -20,7 +20,7 @@ object MinHash {
   import ShingleHashing.{docToColumn}
   
   def singleDocToSignatureByHash(hashSuite : RowHashSuite)(document : Document, k : Int) : Signature = 
-    columnToSignatureByHash(hashSuite)(docToColumn(document, k))
+    columnToSignature(hashSuite)(docToColumn(document, k))
   
   
   def docsToSigByHash(documents : Iterable[Document], 
