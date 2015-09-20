@@ -10,6 +10,8 @@ object LocalitySensitiveHashing {
   def bandHash(band : Signature, bucketCount : Long) = 
     (0L /: band)((hash, b) => hash * 31L + b.hashCodeLong) % bucketCount
   
+  type BucketList = Set[Long]
+    
   def signatureToBucketList(signature : Signature, 
                             bandSize : Int,
                             bucketCount : Long) =
